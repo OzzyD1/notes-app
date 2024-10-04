@@ -1,16 +1,59 @@
 package ie.setu
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-fun main() {
-    val name = "Kotlin"
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    println("Hello, " + name + "!")
+import java.lang.System.exit
 
-    for (i in 1..5) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        println("i = $i")
-    }
+fun main() {
+    runMenu()
+}
+
+fun mainMenu() : Int {
+    print("""
+         > ----------------------------------
+         > |        NOTE KEEPER APP         |
+         > ----------------------------------
+         > | NOTE MENU                      |
+         > |   1) Add a note                |
+         > |   2) List all notes            |
+         > |   3) Update a note             |
+         > |   4) Delete a note             |
+         > ----------------------------------
+         > |   0) Exit                      |
+         > ----------------------------------
+         > ==>> """.trimMargin(">"))
+    return readlnOrNull()?.toIntOrNull() ?: -1
+}
+
+fun runMenu() {
+    do {
+        val option = mainMenu()
+        when (option) {
+            1  -> addNote()
+            2  -> listNotes()
+            3  -> updateNote()
+            4  -> deleteNote()
+            0  -> exitApp()
+            else -> println("Invalid option entered: $option")
+        }
+    } while (true)
+}
+
+fun addNote() {
+    println("You chose Add Note")
+}
+
+fun listNotes() {
+    println("You chose List Notes")
+}
+
+fun updateNote() {
+    println("You chose Update Note")
+}
+
+fun deleteNote() {
+    println("You chose Delete Note")
+}
+
+fun exitApp() {
+    println("Exiting...bye")
+    exit(0)
 }
