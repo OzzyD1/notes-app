@@ -1,5 +1,4 @@
 import io.github.oshai.kotlinlogging.KotlinLogging
-import utils.readIntNotNull
 import utils.readNextInt
 import java.lang.System.exit
 
