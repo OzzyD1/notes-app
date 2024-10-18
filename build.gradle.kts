@@ -14,6 +14,10 @@ dependencies {
     // dependencies for logging
     implementation("io.github.oshai:kotlin-logging-jvm:7.0.0")
     implementation("org.slf4j:slf4j-simple:2.0.16")
+    // https://mvnrepository.com/artifact/org.codehaus.jettison/jettison
+    implementation("org.codehaus.jettison:jettison:1.4.1")
+    // https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream
+    implementation("com.thoughtworks.xstream:xstream:1.4.18")
 }
 
 tasks.test {
