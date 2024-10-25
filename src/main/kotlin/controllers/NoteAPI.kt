@@ -96,6 +96,9 @@ class NoteAPI(serializerType: Serializer){
         return isValidListIndex(index, notes);
     }
 
+    fun searchByTitle(searchString: String) = formatListString(notes.filter { note -> note.noteTitle.contains(searchString, ignoreCase = true) })
+
+
     @Throws(Exception::class)
     fun load() {
         notes = serializer.read() as ArrayList<Note>
