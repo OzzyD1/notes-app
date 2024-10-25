@@ -73,7 +73,7 @@ fun listNotes() {
             else -> println("Invalid option entered: $option");
         }
     } else {
-        println("Option Invalid - No notes stored");
+        println("Option Invalid | No notes stored");
     }
 }
 
