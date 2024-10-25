@@ -13,8 +13,8 @@ class NoteAPI(serializerType: Serializer){
     }
 
     fun listAllNotes(): String =
-        if (notes.isEmpty()) "No Notes Stored"
-        else notes.joinToString(separator = "\n") { note -> notes.indexOf(note).toString() + ": " + note.toString() }
+        if  (notes.isEmpty()) "No notes stored"
+        else formatListString(notes)
 
     fun listActiveNotes(): String =
         if (numberOfActiveNotes() == 0) "No Active Notes Stored"
@@ -69,17 +69,11 @@ class NoteAPI(serializerType: Serializer){
         return notes.size
     }
 
-    fun numberOfArchivedNotes(): Int {
-        return notes.stream().filter{ note: Note -> note.isNoteArchived }.count().toInt()
-    }
+    fun numberOfArchivedNotes(): Int = notes.count { note: Note -> note.isNoteArchived }
 
-    fun numberOfActiveNotes(): Int {
-        return notes.stream().filter { note: Note -> !note.isNoteArchived }.count().toInt()
-    }
+    fun numberOfActiveNotes() = notes.count { note: Note -> !note.isNoteArchived }
 
-    fun numberOfNotesByPriority(priority: Int): Int {
-        return notes.stream().filter{ p: Note -> p.notePriority == priority}.count().toInt()
-    }
+    fun numberOfNotesByPriority(priority: Int) = notes.count { p: Note -> p.notePriority == priority}
 
     fun findNote(index: Int): Note? {
         return if (isValidListIndex(index, notes)) {
@@ -95,6 +89,9 @@ class NoteAPI(serializerType: Serializer){
     fun isValidIndex(index: Int) :Boolean{
         return isValidListIndex(index, notes);
     }
+
+    fun searchByTitle(searchString: String) = formatListString(notes.filter { note -> note.noteTitle.contains(searchString, ignoreCase = true) })
+
 
     @Throws(Exception::class)
     fun load() {
