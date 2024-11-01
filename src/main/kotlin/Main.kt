@@ -4,6 +4,7 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import models.Note
 import persistence.JSONSerializer
 import persistence.XMLSerializer
+import utils.readNextDouble
 import utils.readNextInt
 import utils.readNextLine
 import java.io.File
@@ -83,7 +84,9 @@ fun addNote(){
     val noteTitle = readNextLine("Enter a title for the note: ")
     val notePriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
     val noteCategory = readNextLine("Enter a category for the note: ")
-    val isAdded = noteAPI.add(Note(noteTitle, notePriority, noteCategory, false))
+    val status = readNextInt("Enter status - 1:Not Started 2:In Progress, 3:Complete: ")
+    val estimatedTime = readNextDouble("How long will it take (h.m): ")
+    val isAdded = noteAPI.add(Note(noteTitle, notePriority, noteCategory, false, status, estimatedTime  ))
 
     if (isAdded) {
         println("Added Successfully")
@@ -102,9 +105,10 @@ fun updateNote() {
             val noteTitle = readNextLine("Enter a title for the note: ")
             val notePriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
             val noteCategory = readNextLine("Enter a category for the note: ")
-
+            val status = readNextInt("Enter status - 1:Not Started 2:In Progress, 3:Complete: ")
+            val estimatedTime = readNextDouble("How long will it take (h.m): ")
             //pass the index of the note and the new note details to NoteAPI for updating and check for success.
-            if (noteAPI.updateNote(indexToUpdate, Note(noteTitle, notePriority, noteCategory, false))){
+            if (noteAPI.updateNote(indexToUpdate, Note(noteTitle, notePriority, noteCategory, false, status, estimatedTime))){
                 println("Update Successful")
             } else {
                 println("Update Failed")
