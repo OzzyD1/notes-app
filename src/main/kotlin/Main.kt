@@ -9,6 +9,9 @@ import utils.readNextInt
 import utils.readNextLine
 import java.io.File
 import java.lang.System.exit
+import utils.validRange
+import utils.validRangeDouble
+import utils.isValidCategory
 
 private val logger = KotlinLogging.logger {}
 //private val noteAPI = NoteAPI(XMLSerializer(File("notes.xml")))
@@ -81,11 +84,30 @@ fun listNotes() {
 }
 
 fun addNote(){
+
     val noteTitle = readNextLine("Enter a title for the note: ")
-    val notePriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
-    val noteCategory = readNextLine("Enter a category for the note: ")
-    val status = readNextInt("Enter status - 1:Not Started 2:In Progress, 3:Complete: ")
-    val estimatedTime = readNextDouble("How long will it take (h.m): ")
+
+    var notePriority: Int
+    do {
+        notePriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
+    } while (!validRange(notePriority, 1, 5))
+
+    var noteCategory: String
+    do {
+        noteCategory = readNextLine("Enter a category for the note: ")
+    } while (!isValidCategory(noteCategory))
+
+    var status: Int
+    do {
+        status = readNextInt("Enter status - 1:Not Started 2:In Progress, 3:Complete: ")
+    } while (!validRange(status, 1, 3))
+
+
+    var estimatedTime: Double
+    do {
+        estimatedTime = readNextDouble("How long will it take (h.m): ")
+    } while (!validRangeDouble(estimatedTime, 0.0, 999.0))
+
     val isAdded = noteAPI.add(Note(noteTitle, notePriority, noteCategory, false, status, estimatedTime  ))
 
     if (isAdded) {
@@ -102,11 +124,29 @@ fun updateNote() {
         //only ask the user to choose the note if notes exist
         val indexToUpdate = readNextInt("Enter the index of the note to update: ")
         if (noteAPI.isValidIndex(indexToUpdate)) {
+
             val noteTitle = readNextLine("Enter a title for the note: ")
-            val notePriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
-            val noteCategory = readNextLine("Enter a category for the note: ")
-            val status = readNextInt("Enter status - 1:Not Started 2:In Progress, 3:Complete: ")
-            val estimatedTime = readNextDouble("How long will it take (h.m): ")
+
+            var notePriority: Int
+            do {
+                notePriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
+            } while (!validRange(notePriority, 1, 5))
+
+            var noteCategory: String
+            do {
+                noteCategory = readNextLine("Enter a category for the note: ")
+            } while (!isValidCategory(noteCategory))
+
+            var status: Int
+            do {
+                status = readNextInt("Enter status - 1:Not Started 2:In Progress, 3:Complete: ")
+            } while (!validRange(status, 1, 3))
+
+            var estimatedTime: Double
+            do {
+                estimatedTime = readNextDouble("How long will it take (h.m): ")
+            } while (!validRangeDouble(estimatedTime, 0.0, 999.0))
+
             //pass the index of the note and the new note details to NoteAPI for updating and check for success.
             if (noteAPI.updateNote(indexToUpdate, Note(noteTitle, notePriority, noteCategory, false, status, estimatedTime))){
                 println("Update Successful")
