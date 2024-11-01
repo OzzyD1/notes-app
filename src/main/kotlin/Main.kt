@@ -11,6 +11,7 @@ import java.io.File
 import java.lang.System.exit
 import utils.validRange
 import utils.validRangeDouble
+import utils.isValidCategory
 
 private val logger = KotlinLogging.logger {}
 //private val noteAPI = NoteAPI(XMLSerializer(File("notes.xml")))
@@ -91,7 +92,10 @@ fun addNote(){
         notePriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
     } while (!validRange(notePriority, 1, 5))
 
-    val noteCategory = readNextLine("Enter a category for the note: ")
+    var noteCategory: String
+    do {
+        noteCategory = readNextLine("Enter a category for the note: ")
+    } while (!isValidCategory(noteCategory))
 
     var status: Int
     do {
@@ -128,7 +132,10 @@ fun updateNote() {
                 notePriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
             } while (!validRange(notePriority, 1, 5))
 
-            val noteCategory = readNextLine("Enter a category for the note: ")
+            var noteCategory: String
+            do {
+                noteCategory = readNextLine("Enter a category for the note: ")
+            } while (!isValidCategory(noteCategory))
 
             var status: Int
             do {
